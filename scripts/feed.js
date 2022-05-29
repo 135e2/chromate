@@ -80,7 +80,8 @@ hexo.extend.generator.register("feed", (locals) => {
             itunesExplicit: theme.rss.config.explicit,
             itunesSummary: hstrip(post.excerpt),
             itunesSubtitle: post.podcast.subtitle,
-            itunesDuration: post.podcast.duration
+            itunesDuration: post.podcast.duration,
+            itunesImage: post.podcast.cover,
         });
     });
 
