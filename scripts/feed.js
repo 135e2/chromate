@@ -31,6 +31,9 @@ hexo.extend.generator.register("feed", (locals) => {
         categories.push(category);
     });
 
+    let logo = theme.logo.rss;
+    if (!(logo.startsWith("http://") || logo.startsWith("https://")))
+        logo = fullurl(logo, { relative: false });;
     // Render for site config
     const feed = new podcast({
         title: config.title,
@@ -38,7 +41,7 @@ hexo.extend.generator.register("feed", (locals) => {
         copyright: config.title + ' ' + theme.copyright,
         language: config.language.slice(0, 2),
         siteUrl: config.url,
-        imageUrl: theme.logo.rss,
+        imageUrl: logo,
         itunesSubtitle: config.subtitle,
         itunesSummary: config.description,
         itunesAuthor: config.author,
@@ -62,7 +65,7 @@ hexo.extend.generator.register("feed", (locals) => {
         // Check local media url
         let url = post.podcast.media.url;
         if (!(url.startsWith("http://") || url.startsWith("https://")))
-            url = fullurl(post.path, {relative: false}).replace("index.html", '') + url;
+            url = fullurl(post.path, { relative: false }).replace("index.html", '') + url;
 
         feed.addItem({
             title: post.title,
