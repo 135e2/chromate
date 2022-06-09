@@ -66,6 +66,10 @@ hexo.extend.generator.register("feed", (locals) => {
         let url = post.podcast.media.url;
         if (!(url.startsWith("http://") || url.startsWith("https://")))
             url = fullurl(post.path, { relative: false }).replace("index.html", '') + url;
+        // Check local cover url
+        let cover = post.podcast.cover;
+        if (!(cover.startsWith("http://") || cover.startsWith("https://")))
+        cover = fullurl(post.path, { relative: false }).replace("index.html", '') + cover;
 
         feed.addItem({
             title: post.title,
@@ -84,7 +88,7 @@ hexo.extend.generator.register("feed", (locals) => {
             itunesSummary: hstrip(post.excerpt),
             itunesSubtitle: post.podcast.subtitle,
             itunesDuration: post.podcast.duration,
-            itunesImage: post.podcast.cover,
+            itunesImage: cover,
         });
     });
 
